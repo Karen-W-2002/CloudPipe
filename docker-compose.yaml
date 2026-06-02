@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - REDIS_HOST=${REDIS_HOST}
+
+  redis:
+    image: "redis:alpine"
+    ports: 
+      - "6379:6379"

@@ -1,0 +1,60 @@
+# ==========================================
+# Flask / Python Environment
+# ==========================================
+# Virtual environments (local testing)
+.venv/
+venv/
+ENV/
+env/
+
+# Python bytecode (compiled files)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+bin/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+
+# ==========================================
+# Environment Variables & Secrets (CRITICAL)
+# ==========================================
+# Never commit actual passwords, API keys, or Redis credentials
+.env
+.flaskenv
+instance/
+.pytest_cache/
+
+# ==========================================
+# Testing (Pytest)
+# ==========================================
+.pytest_cache/
+.htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+
+# ==========================================
+# Docker & Databases
+# ==========================================
+# Ignore local Redis data dumps if they back up to your host machine
+*.rdb
+
+# ==========================================
+# Operating System files
+# ==========================================
+.DS_Store
+Thumbs.db
