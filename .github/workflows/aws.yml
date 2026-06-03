@@ -23,7 +23,7 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }} # Only run if it passed!
-    environment: production
+    environment: aws-testing
 
     steps:
     - name: Checkout
