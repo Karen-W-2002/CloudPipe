@@ -13,6 +13,7 @@ resource "aws_instance" "pyflask_ec2" {
   # 2. switch to vpc_security_groups_ids and target SG's id
   vpc_security_group_ids = [aws_security_group.pyflask_sg.id]
 
+  iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
 
   tags = {
     Name = "pyflask-ec2-instance"
@@ -36,7 +37,7 @@ resource "aws_iam_role" "ec2_role" {
       {
         Action = "sts:AssumeRole"
         Effect = "Allow"
-        Sid = ""
+        Sid    = ""
         Principal = {
           Service = "ec2.amazonaws.com"
         }
@@ -46,6 +47,11 @@ resource "aws_iam_role" "ec2_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "ec2_role_attachment" {
-  role = aws_iam_role.ec2_role.name
+  role       = aws_iam_role.ec2_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonElasticContainerRegistryPublicReadOnly"
+}
+
+resource "aws_iam_instance_profile" "ec2_profile" {
+  name = "pyflask-ec2-instance-profile"
+  role = aws_iam_role.ec2_role.name
 }
