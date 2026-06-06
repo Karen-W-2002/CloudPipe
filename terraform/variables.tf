@@ -10,3 +10,7 @@ variable "ec2_ami" {
 variable "ec2_key_name" {
   default = "karen-ec2-key"
 }
+
+variable "aws_region"  {
+  default = "us-east-1"
+}
