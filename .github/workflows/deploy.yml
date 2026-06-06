@@ -1,6 +1,7 @@
 name: Deploy application
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ["test"]
     types: [completed]
