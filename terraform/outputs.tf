@@ -5,7 +5,7 @@ output "ec2_public_ip" {
 
 output "instance_id" {
   description = "ID of EC2 instance"
-  value = aws_instance.pyflask_ec2.id
+  value       = aws_instance.pyflask_ec2.id
 }
 
 output "vpc_id" {
