@@ -1,6 +1,6 @@
-data "http" "my_pub_ip" {
-  url = "https://ifconfig.me/ip"
-}
+#data "http" "my_pub_ip" {
+  #url = "https://ifconfig.me/ip"
+  #}
 
 resource "aws_security_group" "pyflask_sg" {
   name   = "pyflask-sg"
@@ -10,7 +10,8 @@ resource "aws_security_group" "pyflask_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${chomp(data.http.my_pub_ip.response_body)}/32"]
+    #cidr_blocks = ["${chomp(data.http.my_pub_ip.response_body)}/32"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
