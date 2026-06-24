@@ -1,6 +1,9 @@
 services:
   web:
     build: .
+    image: ${APP_IMAGE}
+    depends_on:
+      - "redis"
     ports:
       - "5000:5000"
     environment:
@@ -8,5 +11,3 @@ services:
 
   redis:
     image: "redis:alpine"
-    ports: 
-      - "6379:6379"
