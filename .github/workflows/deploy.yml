@@ -151,6 +151,7 @@ jobs:
           cloud-init status --wait
 
           export APP_IMAGE=public.ecr.aws/${{ env.ECR_REGISTRY_ALIAS }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          export REDIS_HOST=redis
 
           echo "Pulling latest images..."
           docker pull ${APP_IMAGE}
