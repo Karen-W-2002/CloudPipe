@@ -150,6 +150,11 @@ jobs:
           echo "Waiting for cloud-init / user_data to finish..."
           cloud-init status --wait
 
+          echo "Installing latest buildx in user space (to replace built-in outdated one, newer version required for docker compose)"
+          mkdir -p ~/.docker/cli-plugins
+          curl -SL https://github.com/docker/buildx/releases/download/v0.21.1/buildx-v0.21.1.linux-amd64 -o ~/.docker/cli-plugins/docker-buildx
+          chmod +x ~/.docker/cli-plugins/docker-buildx
+
           export APP_IMAGE=public.ecr.aws/${{ env.ECR_REGISTRY_ALIAS }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
           export REDIS_HOST=redis
 
