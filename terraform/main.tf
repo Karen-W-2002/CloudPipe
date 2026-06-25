@@ -6,7 +6,6 @@ resource "aws_instance" "pyflask_ec2" {
   ami           = var.ec2_ami
   instance_type = var.ec2_instance_type
   key_name      = var.ec2_key_name
-  availability_zone = "us-east-1a"
 
   # 1. Target custom subnet
   subnet_id = aws_subnet.pyflask_subnet.id
