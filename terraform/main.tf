@@ -21,10 +21,24 @@ resource "aws_instance" "pyflask_ec2" {
 
   user_data = <<-EOF
               #!/bin/bash
-              sudo yum update -y
-              sudo yum install -y docker
-              sudo systemctl start docker
-              sudo usermod -aG docker ec2-user
+              set -euxo pipefail
+
+              dnf update -y
+              dnf install -y docker
+              
+              systemctl enable docker
+              systemctl start docker
+
+              usermod -aG docker ec2-user
+
+              mkdir -p /usr/libexec/docker/cli-plugins
+              
+              curl -SL "https://github.com/docker/compose/releases/latest/download/docker-compose-linux-$(uname -m)" -o /usr/libexec/docker/cli-plugins/docker-compose
+              
+              chmod +x /usr/libexec/docker/cli-plugins/docker-compose
+
+              docker --version
+              docker compose version
               EOF
 }
 

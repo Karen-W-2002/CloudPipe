@@ -145,14 +145,21 @@ jobs:
       - name: SSH into EC2 instance
         run: |
           ssh -i ~/.ssh/key.pem ec2-user@${{ steps.ec2-ip.outputs.ec2_public_ip }} << 'EOF'
-          
+          set -euo pipefail
+
+          echo "Waiting for cloud-init / user_data to finish..."
+          cloud-init status --wait
+
           export APP_IMAGE=public.ecr.aws/${{ env.ECR_REGISTRY_ALIAS }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
 
+          echo "Pulling latest images..."
           docker pull ${APP_IMAGE}
           docker pull redis:alpine
 
-          curl -o docker-compose.yaml https://raw.githubusercontent.com/Karen-W-2002/CloudPipe/main/docker-compose.yaml
+          echo "Fetching docker-compose.yaml..."
+          curl -fsSL -o docker-compose.yaml https://raw.githubusercontent.com/Karen-W-2002/CloudPipe/main/docker-compose.yaml
 
+          echo "Starting application containers..."
           docker compose up -d
           EOF
 
@@ -172,7 +179,7 @@ jobs:
           for i in {1..5}; do
             curl --fail http://${{ needs.deploy.outputs.ec2_public_ip }}/ && break
             sleep 10
-            if [$i -eq 5]; then
+            if [ $i -eq 5 ]; then
               echo "Health check failed after 5 attempts"
               exit 1
             fi
@@ -183,7 +190,7 @@ jobs:
           for i in {1..5}; do
             curl --fail http://${{ needs.deploy.outputs.ec2_public_ip }}/health && break
             sleep 10
-            if [$i -eq 5]; then
+            if [ $i -eq 5 ]; then
               echo "DB health check failed after 5 attempts"
               exit 1
             fi
