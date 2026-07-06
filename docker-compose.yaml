@@ -5,13 +5,25 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-
     depends_on:
       - "redis"
     ports:
       - "80:5000"
     environment:
       - REDIS_HOST=${REDIS_HOST}
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: us-east-1
+        awslogs-group: /cloudpipe/app
+        awslogs-stream: web
+        awslogs-create-group: "true"
 
   redis:
     image: "redis:alpine"
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: us-east-1
+        awslogs-groups: /cloudpipe/app
+        awslogs-stream: redis

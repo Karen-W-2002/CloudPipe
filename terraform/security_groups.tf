@@ -1,15 +1,15 @@
 #data "http" "my_pub_ip" {
-  #url = "https://ifconfig.me/ip"
-  #}
+#url = "https://ifconfig.me/ip"
+#}
 
 resource "aws_security_group" "pyflask_sg" {
   name   = "pyflask-sg"
   vpc_id = aws_vpc.pyflask_vpc.id
 
   ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
+    from_port = 22
+    to_port   = 22
+    protocol  = "tcp"
     #cidr_blocks = ["${chomp(data.http.my_pub_ip.response_body)}/32"]
     cidr_blocks = ["0.0.0.0/0"]
   }

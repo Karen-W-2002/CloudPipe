@@ -94,7 +94,7 @@ pytest
 
 ## Roadmap
 
-- [ ] Add CloudWatch monitoring/logging for the deployed EC2 instance
+- [x] Add CloudWatch monitoring/logging for the deployed EC2 instance
 - [ ] Add architecture diagram image
 - [ ] Restrict SSH ingress (port 22) to a specific IP instead of `0.0.0.0/0` in security_groups.tf
 - [ ] Expand test coverage beyond core API routes
