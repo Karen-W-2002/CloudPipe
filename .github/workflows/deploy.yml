@@ -162,11 +162,12 @@ jobs:
           docker pull ${APP_IMAGE}
           docker pull redis:alpine
 
-          echo "Fetching docker-compose.yaml..."
+          echo "Fetching docker-compose files"
           curl -fsSL -o docker-compose.yaml https://raw.githubusercontent.com/Karen-W-2002/CloudPipe/main/docker-compose.yaml
+          curl -fsSL -o docker-compose.prod.yaml https://raw.githubusercontent.com/Karen-W-2002/CloudPipe/main/docker-compose.prod.yaml
 
           echo "Starting application containers..."
-          docker compose up -d
+          docker compose -f docker-compose.yaml -f docker-compose.prod.yaml up -d
           EOF
 
     outputs:
