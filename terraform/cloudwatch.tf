@@ -53,3 +53,27 @@ resource "aws_cloudwatch_metric_alarm" "status_check_failed" {
     InstanceId = aws_instance.pyflask_ec2.id
   }
 }
+
+resource "aws_cloudwatch_log_metric_filter" "app_log_filter" {
+  name           = "cloudpipe-app-errors"
+  log_group_name = aws_cloudwatch_log_group.app_logs.name
+  pattern        = "ERROR"
+
+  metric_transformation {
+    name      = "AppErrorCount"
+    namespace = "CloudPipe"
+    value     = "1"
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "app_error_alarm" {
+  alarm_name          = "cloudpipe-app-error-alarm"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 1
+  metric_name         = "AppErrorCount"
+  namespace           = "CloudPipe"
+  period              = 300
+  statistic           = "Sum"
+  threshold           = 0
+  alarm_description   = "Alarm when application logs contains ERROR"
+}
