@@ -1,0 +1,17 @@
+services:
+  web:
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: us-east-1
+        awslogs-group: /cloudpipe/app
+        awslogs-stream: web
+        awslogs-create-group: "true"
+
+  redis:
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: us-east-1
+        awslogs-groups: /cloudpipe/app
+        awslogs-stream: redis 
