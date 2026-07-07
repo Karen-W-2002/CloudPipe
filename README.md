@@ -12,7 +12,7 @@ CloudPipe is a small Flask + Redis service wrapped in a complete, automated depl
 1. Lints and tests the application code
 2. Builds a Docker image and pushes it to Amazon ECR Public
 3. Provisions AWS infrastructure from scratch with Terraform (VPC, subnet, security groups, EC2 instance)
-4. Deplloys the containerized app + Redis to the newly provisioned EC2 instance
+4. Deploys the containerized app + Redis to the newly provisioned EC2 instance
 5. Runs live health checks against the deployed service
 6. Tears down the infrastructure automatically via `terraform destroy`
 
@@ -47,7 +47,7 @@ GitHub push
 - **Testing**: pytest, fakeredis, flake8
 - **Containerization**: Docker, Docker Compose
 - **Infrastructure as Code**: Terraform (VPC, subnets, security groups, EC2, IAM), remote state in S3 with state locking
-- **CI/CD**: Github Actiosn
+- **CI/CD**: Github Actions
 - **Cloud**: AWS (EC2, ECR Public, S3, VPC, IAM)
 - Monitoring: AWS CloudWatch (Logs, Metric Filters, Alarms)
 
